@@ -1,0 +1,28 @@
+FQDNLookup   true
+Interval     60
+
+LoadPlugin logfile
+
+<Plugin logfile>
+  LogLevel err
+  #File "${COLLECTD_HOME}/var/log/collectd-listener-1m.log"
+  File stderr
+  Timestamp true
+</Plugin>
+
+LoadPlugin network
+
+<Plugin network>
+  Listen "${COLLECTD_LISTENER_IP}" "${COLLECTD_LISTENER_1M_PORT}"
+</Plugin>
+
+LoadPlugin rrdtool
+
+<Plugin rrdtool>
+  DataDir "${COLLECTD_RRD_DATADIR}"
+  CacheTimeout 30
+  RandomTimeout 10
+  CacheFlush 300
+  WritesPerSecond 100
+  RRARows 200
+</Plugin>

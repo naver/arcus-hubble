@@ -1,0 +1,61 @@
+<div ng-switch on="subtab.trimmedTitle">
+  <div ng-switch-when="key-value">
+    <h6>sum of prefixes (key-value)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="kv" data-chart-title="kv_get" data-chart-legend="{{serverListString}}" data-chart-key="arcus_prefixes_kv-%query.prefix%.rrd/kv_get" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="kv" data-chart-title="kv_hit" data-chart-legend="{{serverListString}}" data-chart-key="arcus_prefixes_kv-%query.prefix%.rrd/kv_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="kv" data-chart-title="kv_set" data-chart-legend="{{serverListString}}" data-chart-key="arcus_prefixes_kv-%query.prefix%.rrd/kv_set" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="kv" data-chart-title="kv_del" data-chart-legend="{{serverListString}}" data-chart-key="arcus_prefixes_kv-%query.prefix%.rrd/kv_del" aggregated-by-servers="arcus_prefix"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="list">
+    <h6>sum of prefixes (list)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="lop_create" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/lop_create" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="lop_insert" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/lop_insert" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="lop_insert_hit" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/lop_insert_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="lop_delete" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/lop_delete" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="lop_delete_hit" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/lop_delete_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="lop_get" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/lop_get" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="lop_get_hit" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/lop_get_hit" aggregated-by-servers="arcus_prefix"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="set">
+    <h6>sum of prefixes (set)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_create" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_create" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_insert" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_insert" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_insert_hit" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_insert_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_delete" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_delete" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_delete_hit" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_delete_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_get" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_get" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_get_hit" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_get_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_exist" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_exist" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="sop_exist_hit" data-chart-key="arcus_prefixes_set-%query.prefix%.rrd/sop_exist_hit" aggregated-by-servers="arcus_prefix"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="btree">
+    <h6>sum of prefixes (b+tree)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_get" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_get" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_get_hit" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_get_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_create" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_create" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_insert" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_insert" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_insert_hit" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_insert_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_update" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_update" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_update_hit" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_update_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_incr" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_incr" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_incr_hit" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_incr_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_decr" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_decr" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_decr_hit" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_decr_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_delete" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_delete" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_delete_hit" data-chart-key="arcus_prefixes_list-%query.prefix%.rrd/bop_delete_hit" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_count" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_count" aggregated-by-servers="arcus_prefix"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="bop_count_hit" data-chart-key="arcus_prefixes_btree-%query.prefix%.rrd/bop_count_hit" aggregated-by-servers="arcus_prefix"></div>
+    </div>
+  </div>
+
+</div>

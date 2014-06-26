@@ -1,0 +1,6 @@
+<h6>{{subtab.title}}</h6>
+<div chartgroup ng-model="selectedSubTab">
+  <div class="chart span5" data-chart-type="multi_line" data-chart-group="{{subtab.key}}" data-chart-title="{{subtab.key}} packets" data-chart-legend="rx,tx" data-chart-key="{{subtab.key}}/if_packets.rrd/rx,{{subtab.key}}/if_packets.rrd/tx"></div>
+  <div class="chart span5" data-chart-type="multi_line" data-chart-group="{{subtab.key}}" data-chart-title="{{subtab.key}} octets" data-chart-legend="rx,tx" data-chart-key="{{subtab.key}}/if_octets.rrd/rx,{{subtab.key}}/if_octets.rrd/tx"></div>
+  <div class="chart span5" data-chart-type="multi_line" data-chart-group="{{subtab.key}}" data-chart-title="{{subtab.key}} errors" data-chart-legend="rx,tx" data-chart-key="{{subtab.key}}/if_errors.rrd/rx,{{subtab.key}}/if_errors.rrd/tx"></div>
+</div>

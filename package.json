@@ -1,0 +1,19 @@
+{
+    "name": "hubble"
+  , "version": "0.0.1"
+  , "private": true
+  , "scripts": {
+        "start": "node app"
+    }
+  , "dependencies": {
+        "walk": "*"
+      , "ctype": "*"
+      , "async": "*"
+      , "sqlite3": "2.0.x"
+      , "winston": "*"
+      , "express": "3.x"
+      , "socket.io": "*"
+      , "zookeeper": "*"
+      , "underscore": "*"
+    }
+}

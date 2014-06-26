@@ -1,0 +1,9 @@
+<h6>sum of cluster (overview)</h6>
+<div class ="row" ng-model="selectedTab" chartgroup>
+  <div class="chart span5" data-chart-type="sum_line" data-chart-group="sum" data-chart-title="bytes" data-chart-key="arcus_stats_memory.rrd/bytes" aggregated-by-servers="arcus_stat"></div>
+  <div class="chart span5" data-chart-type="sum_line" data-chart-group="sum" data-chart-title="total_malloced" data-chart-key="arcus_stats_memory.rrd/total_malloced" aggregated-by-servers="arcus_stat"></div>
+  <div class="chart span5" data-chart-type="sum_line" data-chart-group="sum" data-chart-title="mem_limit" data-chart-key="arcus_stats_memory.rrd/engine_maxbytes" aggregated-by-servers="arcus_stat"></div>
+  <div class="chart span5" data-chart-type="sum_line" data-chart-group="sum" data-chart-title="evictions" data-chart-key="arcus_stats_item.rrd/evictions" aggregated-by-servers="arcus_stat"></div>
+  <div class="chart span5" data-chart-type="sum_line" data-chart-group="sum" data-chart-title="cmd_get" data-chart-key="arcus_stats_kv.rrd/cmd_get" aggregated-by-servers="arcus_stat"></div>
+  <div class="chart span5" data-chart-type="sum_line" data-chart-group="sum" data-chart-title="cmd_set" data-chart-key="arcus_stats_kv.rrd/cmd_set" aggregated-by-servers="arcus_stat"></div>
+</div>

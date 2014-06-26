@@ -1,0 +1,80 @@
+<div ng-switch on="subtab.trimmedTitle">
+  <div ng-switch-when="memory">
+    <h6>sum of cluster (memory)</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="bytes" data-chart-key="arcus_stats_memory.rrd/bytes" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="total_malloced" data-chart-key="arcus_stats_memory.rrd/total_malloced" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="mem_limit" data-chart-key="arcus_stats_memory.rrd/engine_maxbytes" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="curr_items" data-chart-key="arcus_stats_memory.rrd/curr_items" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="evictions" data-chart-key="arcus_stats_item.rrd/evictions" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="reclaimed" data-chart-key="arcus_stats_item.rrd/reclaimed" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="sticky_bytes" data-chart-key="arcus_stats_memory.rrd/sticky_bytes" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="memory" data-chart-title="sticky_limit" data-chart-key="arcus_stats_memory.rrd/sticky_limit" aggregated-by-servers="arcus_stat"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="key-value">
+    <h6>sum of cluster (key-value)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_get" data-chart-key="arcus_stats_kv.rrd/cmd_get" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_set" data-chart-key="arcus_stats_kv.rrd/cmd_set" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_incr" data-chart-key="arcus_stats_kv.rrd/cmd_incr" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_decr" data-chart-key="arcus_stats_kv.rrd/cmd_decr" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_flush" data-chart-key="arcus_stats_kv.rrd/cmd_flush" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_flush_prefix" data-chart-key="arcus_stats_kv.rrd/cmd_flush_prefix" aggregated-by-servers="arcus_stat"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="list">
+    <h6>sum of cluster (list)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="list" data-chart-title="cmd_lop_create" data-chart-key="arcus_stats_list.rrd/cmd_lop_create" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="list" data-chart-title="cmd_lop_insert" data-chart-key="arcus_stats_list.rrd/cmd_lop_ins" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="list" data-chart-title="cmd_lop_delete" data-chart-key="arcus_stats_list.rrd/cmd_lop_delete" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="list" data-chart-title="cmd_lop_get" data-chart-key="arcus_stats_list.rrd/cmd_lop_get" aggregated-by-servers="arcus_stat"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="set">
+    <h6>sum of cluster (set)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="set" data-chart-title="cmd_sop_create" data-chart-key="arcus_stats_set.rrd/cmd_sop_create" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="set" data-chart-title="cmd_sop_insert" data-chart-key="arcus_stats_set.rrd/cmd_sop_ins" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="set" data-chart-title="cmd_sop_delete" data-chart-key="arcus_stats_set.rrd/cmd_sop_delete" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="set" data-chart-title="cmd_sop_get" data-chart-key="arcus_stats_set.rrd/cmd_sop_get" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="set" data-chart-title="cmd_sop_exist" data-chart-key="arcus_stats_set.rrd/cmd_sop_exist" aggregated-by-servers="arcus_stat"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="btree">
+    <h6>sum of cluster (b+tree)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_create" data-chart-key="arcus_stats_btree.rrd/cmd_bop_create" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_insert" data-chart-key="arcus_stats_btree.rrd/cmd_bop_ins" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_update" data-chart-key="arcus_stats_btree.rrd/cmd_bop_update" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_delete" data-chart-key="arcus_stats_btree.rrd/cmd_bop_delete" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_get" data-chart-key="arcus_stats_btree.rrd/cmd_bop_get" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_count" data-chart-key="arcus_stats_btree.rrd/cmd_bop_count" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_mget" data-chart-key="arcus_stats_btree.rrd/cmd_bop_mget" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_smget" data-chart-key="arcus_stats_btree.rrd/cmd_bop_smget" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_incr" data-chart-key="arcus_stats_btree.rrd/cmd_bop_incr" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="btree" data-chart-title="cmd_bop_decr" data-chart-key="arcus_stats_btree.rrd/cmd_bop_decr" aggregated-by-servers="arcus_stat"></div>
+    </div>
+  </div>
+
+  <div ng-switch-when="others">
+    <h6>sum of cluster (others)</h6>
+    <div class="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="connections" data-chart-key="arcus_stats_process.rrd/curr_connections" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="bytes_read" data-chart-key="arcus_stats_network.rrd/bytes_read" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="bytes_written" data-chart-key="arcus_stats_network.rrd/bytes_written" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="cmd_getattr" data-chart-key="arcus_stats_attr.rrd/cmd_getattr" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="cmd_getattr" data-chart-key="arcus_stats_attr.rrd/cmd_setattr" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="getattr_hits" data-chart-key="arcus_stats_attr.rrd/getattr_hits" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="getattr_misses" data-chart-key="arcus_stats_attr.rrd/getattr_misses" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="setattr_hits" data-chart-key="arcus_stats_attr.rrd/setattr_hits" aggregated-by-servers="arcus_stat"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="others" data-chart-title="setattr_misses" data-chart-key="arcus_stats_attr.rrd/setattr_misses" aggregated-by-servers="arcus_stat"></div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,86 @@
+<div class="row-fluid" ng-controller="ServiceCodeController">
+  <div class="span5">
+    <h3>Hubble</h3>
+  </div>
+  <div class="span7 pull-right">
+    <div class="row">
+      <div class="span6 pull-right">
+        <select style="width:100%;" ui-select2 ng-model="selectedServer" ng-change="serverSelected();">
+          <option ng-repeat="server in serverList" value="{{server}}">{{server}}</option>
+        </select>
+      </div>
+      <div class="span4 pull-right">
+        <select style="width:90%;" ui-select2 ng-model="selectedServiceCode" data-placeholder="select a service" ng-change="serviceCodeSelected();">
+          <option value=""></option>
+          <option ng-repeat="serviceCode in serviceCodeList" value="{{serviceCode}}">{{serviceCode}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" ng-controller="PeriodController">
+  <div class="span12">
+    <form class="form-inline" id="search" onsubmit="return false;">
+      <div id="until" class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn" ng-model="periodSelector" btn-radio="'now'">now</button>
+        <button type="button" class="btn" ng-model="periodSelector" btn-radio="'select'">select</button>
+      </div>
+      <input id="date" class="" maxlength="10" size="16" type="text" data-date-format="yyyy/mm/dd" style="text-align:center;width:90px;height:7px;" placeholder="yyyy/mm/dd" disabled>
+      <input id="time" class="" maxlength="5" size="16" type="text" style="text-align:center;width:90px;height:7px;" placeholder="hh:mm" disabled>
+      
+      <div class="btn-group">
+        <button type="button" class="btn" ng-model="period" btn-radio="'5m'" ng-click="selectPeriod(periodSelector, period);">5m</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'30m'" ng-click="selectPeriod(periodSelector, period);">30m</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'1h'" ng-click="selectPeriod(periodSelector, period);">1h</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'3h'" ng-click="selectPeriod(periodSelector, period);">3h</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'6h'" ng-click="selectPeriod(periodSelector, period);">6h</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'12h'" ng-click="selectPeriod(periodSelector, period);">12h</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'1d'" ng-click="selectPeriod(periodSelector, period);">1d</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'1w'" ng-click="selectPeriod(periodSelector, period);">1w</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'1M'" ng-click="selectPeriod(periodSelector, period);">1M</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'3M'" ng-click="selectPeriod(periodSelector, period);">3M</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'6M'" ng-click="selectPeriod(periodSelector, period);">6M</button>
+        <button type="button" class="btn" ng-model="period" btn-radio="'1Y'" ng-click="selectPeriod(periodSelector, period);">1Y</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row" ng-controller="TabController">
+  <div class="span12">
+    <tabset style="font-size:13px;">
+      <tab heading="{{serviceName}}" disabled="1">
+        <!--ng-include src="'/partials/dashboard.html'"-->
+      </tab>
+      <tab ng-repeat="tab in tabs" select="onTab(tab)" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+        <div ng-switch on="tab.title">
+          <div ng-switch-when="sum_prefix" ng-controller="PrefixController">
+            <p>
+              <select style="width:50%;" ui-select2 ng-model="selectedPrefix" ng-change="selectPrefix(selectedPrefix);">
+                <option ng-repeat="prefix in prefixList" value="{{prefix}}">{{prefix}}</option>
+              </select>
+              <small>&nbsp;(total prefixes:{{prefixList.length}})</small>
+            </p>
+          </div>
+          <div ng-switch-when="stacked_sum_prefix" ng-controller="PrefixController">
+            <p>
+              <select style="width:50%;" ui-select2 ng-model="selectedPrefix" ng-change="selectPrefix(selectedPrefix);">
+                <option ng-repeat="prefix in prefixList" value="{{prefix}}">{{prefix}}</option>
+              </select>
+              <small>&nbsp;(total prefixes:{{prefixList.length}})</small>
+            </p>
+          </div>
+        </div>
+        <tabset style="font-size:13px;">
+          <tab heading="Overview" select="onSubTab(tab, {title: 'Overview'})">
+            <ng-include src="tab.overviewTemplateUrl"></ng-include>
+          </tab>
+          <tab ng-repeat="subtab in tab.subtabs" select="onSubTab(tab, subtab)" heading="{{subtab.trimmedTitle}}" active="subtab.active" disabled="subtab.disabled">
+            <ng-include src="tab.templateUrl"></ng-include>
+          </tab>
+        </tabset>
+      </tab>
+    </tabset>
+  </div>
+</div>

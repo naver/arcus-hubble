@@ -1,0 +1,17 @@
+{
+  "name": "hubble",
+  "version": "1.0.0",
+  "main": "main.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "d3": "latest",
+    "flat-ui": "latest",
+    "modernizr": "latest",
+    "bootstrap": "latest",
+    "angular-bootstrap": "latest",
+    "angular-ui-select2": "latest"
+  }
+}

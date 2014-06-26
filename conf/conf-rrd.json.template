@@ -1,0 +1,4 @@
+{
+  "port": "${HUBBLE_RRD_SERVER_PORT}",
+  "rrd_path": "${COLLECTD_RRD_DATADIR}"
+}

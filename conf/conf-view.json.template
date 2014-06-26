@@ -1,0 +1,3 @@
+{
+  "port": "${HUBBLE_WEB_PORT}"
+}

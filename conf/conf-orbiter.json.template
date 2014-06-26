@@ -1,0 +1,14 @@
+{
+  "port": "${HUBBLE_ORBITER_PORT}",
+  "zookeepers": {
+      "default": "${HUBBLE_ZOOKEEPER_HOSTS}"
+  },
+  "log": {
+      "file": "${HUBBLE_HOME}/log/hubble-orbiter.log"
+    , "level": "info"
+  },
+  "hubble": {
+      "test": "${COLLECTD_LISTENER_IP}:${HUBBLE_RRD_SERVER_PORT}"
+  }
+}
+

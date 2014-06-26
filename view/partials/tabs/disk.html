@@ -1,0 +1,11 @@
+<h6>{{subtab.title}}</h6>
+<div ng-model="selectedTab" chartgroup>
+  <div class="chart span5
+chart span5" data-chart-type="multi_line" data-chart-group="{{subtab.key}}" data-chart-title="Octets Read/Write" data-chart-legend="read,write" data-chart-key="{{subtab.key}}/disk_octets.rrd/read,{{subtab.key}}/disk_octets.rrd/write"></div>
+  <div class="chart span5
+chart span5" data-chart-type="multi_line" data-chart-group="{{subtab.key}}" data-chart-title="Merged Read/Write" data-chart-legend="read,write" data-chart-key="{{subtab.key}}/disk_merged.rrd/read,{{subtab.key}}/disk_merged.rrd/write"></div>
+  <div class="chart span5
+chart span5" data-chart-type="multi_line" data-chart-group="{{subtab.key}}" data-chart-title="Ops Read/Write" data-chart-legend="read,write" data-chart-key="{{subtab.key}}/disk_ops.rrd/read,{{subtab.key}}/disk_ops.rrd/write"></div>
+  <div class="chart span5
+chart span5" data-chart-type="multi_line" data-chart-group="{{subtab.key}}" data-chart-title="Time Read/Write" data-chart-legend="read,write" data-chart-key="{{subtab.key}}/disk_time.rrd/read,{{subtab.key}}/disk_time.rrd/write"></div>
+</div>

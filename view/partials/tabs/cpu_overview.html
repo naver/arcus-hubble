@@ -1,0 +1,12 @@
+<h6>cpu</h6>
+<div ng-model="selectedTab" chartgroup>
+    <div class="chart span8" data-chart-type="reversed_line" data-chart-group="overview" data-chart-title="usage" data-chart-key="cpu-idle.rrd/value" aggregated-by="cpu"></div>
+    <!-- private -->
+    <div class="chart span5" data-chart-type="avg_line" data-chart-group="overview" data-chart-title="user" data-chart-key="cpu-user.rrd/value" aggregated-by="cpu"></div>
+    <div class="chart span5" data-chart-type="avg_line" data-chart-group="overview" data-chart-title="system" data-chart-key="cpu-system.rrd/value" aggregated-by="cpu"></div>
+    <div class="chart span5" data-chart-type="avg_line" data-chart-group="overview" data-chart-title="wait" data-chart-key="cpu-wait.rrd/value" aggregated-by="cpu"></div>
+    <div class="chart span5" data-chart-type="avg_line" data-chart-group="overview" data-chart-title="softirq" data-chart-key="cpu-softirq.rrd/value" aggregated-by="cpu"></div>
+    <div class="chart span5" data-chart-type="avg_line" data-chart-group="overview" data-chart-title="interrupt" data-chart-key="cpu-interrupt.rrd/value" aggregated-by="cpu"></div>
+    <div class="chart span5" data-chart-type="avg_line" data-chart-group="overview" data-chart-title="nice" data-chart-key="cpu-nice.rrd/value" aggregated-by="cpu"></div>
+    <div class="chart span5" data-chart-type="avg_line" data-chart-group="overview" data-chart-title="steal" data-chart-key="cpu-steal.rrd/value" aggregated-by="cpu"></div>
+</div>

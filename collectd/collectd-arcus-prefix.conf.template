@@ -1,0 +1,32 @@
+FQDNLookup   true
+Interval     60
+
+LoadPlugin logfile
+
+<Plugin logfile>
+  LogLevel err
+  #File "${COLLECTD_HOME}/var/log/collectd-arcus-prefix.log"
+  File stderr
+  Timestamp true
+</Plugin>
+
+LoadPlugin network
+
+<Plugin network>
+  Server "${COLLECTD_LISTENER_IP}" "${COLLECTD_LISTENER_1M_PORT}"
+</Plugin>
+
+LoadPlugin python
+
+<Plugin python>
+  ModulePath "${COLLECTD_HOME}/plugins/python"
+  Import "arcus_stat"
+
+  <Module arcus_stat>
+    Host "127.0.0.1"
+    Port "DETECT"
+    Mode "prefix"
+    TypesDB "${COLLECTD_HOME}/share/collectd/types.db"
+  </Module>
+</Plugin>
+

@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="span12">
+    <h6>memory</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span12" data-chart-type="filled_multi_line" data-chart-group="memory" data-chart-title="memory stack" data-chart-legend="bytes,malloced,mem_limit" data-chart-key="{{subtab.key}}/arcus_stats_memory.rrd/bytes,{{subtab.key}}/arcus_stats_memory.rrd/total_malloced,{{subtab.key}}/arcus_stats_memory.rrd/engine_maxbytes"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="memory" data-chart-title="curr_items" data-chart-legend="curr_items" data-chart-key="{{subtab.key}}/arcus_stats_memory.rrd/curr_items"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="memory" data-chart-title="evictions" data-chart-legend="evictions" data-chart-key="{{subtab.key}}/arcus_stats_item.rrd/evictions"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="memory" data-chart-title="reclaimed" data-chart-legend="reclaimed" data-chart-key="{{subtab.key}}/arcus_stats_item.rrd/reclaimed"></div>
+    </div>
+
+    <h6>memory (sticky)</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="sticky_memory" data-chart-title="sticky_memory" data-chart-legend="sticky_bytes,sticky_limit" data-chart-key="{{subtab.key}}}/arcus_stats_memory.rrd/sticky_bytes,{{subtab.key}}/arcus_stats_memory.rrd/sticky_limit"></div>
+    </div>
+
+    <h6>network</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span12" data-chart-type="multi_line" data-chart-group="network" data-chart-title="network" data-chart-legend="bytes_read,bytes_written" data-chart-key="{{subtab.key}}/arcus_stats_network.rrd/bytes_read,{{subtab.key}}/arcus_stats_network.rrd/bytes_written"></div>
+    </div>
+
+    <h6>connections</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span12" data-chart-type="multi_line" data-chart-group="connections" data-chart-title="connections" data-chart-legend="curr" data-chart-key="{{subtab.key}}/arcus_stats_process.rrd/curr_connections"></div>
+    </div>
+
+    <h6>attributes</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="attr" data-chart-title="getattr operations" data-chart-legend="hit,miss" data-chart-key="{{subtab.key}}/arcus_stats_attr.rrd/getattr_hits,{{subtab.key}}/arcus_stats_attr.rrd/getattr_misses"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="attr" data-chart-title="setattr operations" data-chart-legend="hit,miss" data-chart-key="{{subtab.key}}/arcus_stats_attr.rrd/setattr_hits,{{subtab.key}}/arcus_stats_attr.rrd/setattr_misses"></div>
+    </div>
+
+
+    <h6>key-value</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="kv" data-chart-title="key-value operations" data-chart-legend="get,set,incr,decr" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/cmd_get,{{subtab.key}}/arcus_stats_kv.rrd/cmd_set,{{subtab.key}}/arcus_stats_kv.rrd/incr_hits,{{subtab.key}}/arcus_stats_kv.rrd/decr_hits"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="get/set ratio" data-chart-legend="get,set" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/cmd_get,{{subtab.key}}/arcus_stats_kv.rrd/cmd_set"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_delete" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/delete_hits,{{subtab.key}}/arcus_stats_kv.rrd/delete_misses"></div>
+      <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_cas" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/cas_hits,{{subtab.key}}/arcus_stats_kv.rrd/cas_misses"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="kv" data-chart-title="flush operations" data-chart-legend="all,by_prefix" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/cmd_flush,{{subtab.key}}/arcus_stats_kv.rrd/cmd_flush_prefix"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/get_hits,{{subtab.key}}/arcus_stats_kv.rrd/get_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="incr hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/incr_hits,{{subtab.key}}/arcus_stats_kv.rrd/incr_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="decr hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/decr_hits,{{subtab.key}}/arcus_stats_kv.rrd/decr_misses"></div>
+    </div>
+
+    <h6>list</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span12" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="list operations" data-chart-legend="lop_create,lop_insert,lop_get,lop_delete" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_create,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_ins,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_get,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_delete"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="list" data-chart-title="lop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/lop_get_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/lop_get_elem_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="list" data-chart-title="lop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/lop_del_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/lop_del_elem_misses"></div>
+    </div>
+
+    <h6>set</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span12" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="set operations" data-chart-legend="sop_create,sop_insert,sop_get,sop_exist,sop_delete" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_create,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_ins,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_get,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_exist,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_delete"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_get_elem_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_get_elem_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_exist hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_exist_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_exist_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_del_elem_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_del_elem_misses"></div>
+    </div>
+
+    <h6>b+tree</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span12" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="b+tree operations" data-chart-legend="bop_create,bop_insert,bop_update,bop_get,bop_count,bop_mget,bop_smget,bop_incr,bop_decr,bop_delete" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_create,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_ins,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_upd,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_get,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_count,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_mget,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_smget,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_incr,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_decr,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_delete"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_update hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_upd_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_upd_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_get_elem_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_get_elem_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_count hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_count_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_count_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_del_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/bop_del_elem_misses"></div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div ng-switch on="subtab.title">
+  <div ng-switch-when="protocols-Tcp">
+    <h6>tcp</h6>
+    <div ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="InErrs" data-chart-legend="value" data-chart-key="protocols-Tcp/protocol_counter-InErrs.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="AttemptFails" data-chart-legend="value" data-chart-key="protocols-Tcp/protocol_counter-AttemptFails.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="RetransSegs" data-chart-legend="value" data-chart-key="protocols-Tcp/protocol_counter-RetransSegs.rrd/value"></div>
+      <div class="chart span5" data-chart-type="multi_line" data-chart-group="tcp" data-chart-title="In/Out Segments" data-chart-legend="InSegs,OutSegs" data-chart-key="protocols-Tcp/protocol_counter-InSegs.rrd/value,protocols-Tcp/protocol_counter-OutSegs.rrd/value"></div>
+      <div class="chart span5" data-chart-type="multi_line" data-chart-group="tcp" data-chart-title="Opens" data-chart-legend="Active,Passive" data-chart-key="protocols-Tcp/protocol_counter-ActiveOpens.rrd/value,protocols-Tcp/protocol_counter-PassiveOpens.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="CurrEstab" data-chart-legend="value" data-chart-key="protocols-Tcp/protocol_counter-CurrEstab.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="EstabResets" data-chart-legend="value" data-chart-key="protocols-Tcp/protocol_counter-EstabResets.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="OutRsts" data-chart-legend="value" data-chart-key="protocols-Tcp/protocol_counter-OutRsts.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="MaxConn" data-chart-legend="value" data-chart-key="protocols-Tcp/protocol_counter-MaxConn.rrd/value"></div>
+    </div>
+  </div>
+  <div ng-switch-when="protocols-TcpExt">
+    <h6>tcp (extended)</h6>
+    <div ng-model="selectedTab" chartgroup>
+    </div>
+  </div>
+  <div ng-switch-when="protocols-Udp">
+    <h6>udp</h6>
+    <div ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="multi_line" data-chart-group="udp" data-chart-title="Datagrams" data-chart-legend="In,Out" data-chart-key="protocols-Udp/protocol_counter-InDatagrams.rrd/value,protocols-Udp/protocol_counter-OutDatagrams.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="udp" data-chart-title="InErrors" data-chart-legend="InErr" data-chart-key="protocols-Udp/protocol_counter-InErrors.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="udp" data-chart-title="NoPorts" data-chart-legend="NoPorts" data-chart-key="protocols-Udp/protocol_counter-NoPorts.rrd/value"></div>
+    </div>
+  </div>
+</div>

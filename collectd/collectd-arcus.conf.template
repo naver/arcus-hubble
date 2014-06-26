@@ -1,0 +1,88 @@
+FQDNLookup   true
+Interval     5
+
+LoadPlugin logfile
+
+<Plugin logfile>
+  LogLevel err
+  #File "${COLLECTD_HOME}/var/log/collectd-arcus.log"
+  File stderr
+  Timestamp true
+</Plugin>
+
+LoadPlugin network
+
+<Plugin network>
+  Server "${COLLECTD_LISTENER_IP}" "${COLLECTD_LISTENER_5S_PORT}"
+</Plugin>
+
+LoadPlugin cpu
+
+LoadPlugin interface
+
+LoadPlugin load
+
+LoadPlugin memory
+
+LoadPlugin processes
+
+LoadPlugin swap
+
+LoadPlugin vmem
+
+LoadPlugin protocols
+
+<Plugin protocols>
+  Value "TcpExt:TCPAbortOnLinger"
+  Value "TcpExt:TCPFastRetrans"
+  Value "TcpExt:DelayedACKLost"
+  Value "TcpExt:TW"
+  Value "TcpExt:TCPLoss"
+  Value "TcpExt:TCPAbortOnData"
+  Value "TcpExt:TCPAbortOnClose"
+  Value "TcpExt:TWKilled"
+  Value "TcpExt:TCPAbortOnTimeout"
+  Value "TcpExt:TCPPrequeueDropped"
+  Value "TcpExt:TCPLossFailures"
+  Value "TcpExt:TCPMemoryPressures"
+  Value "TcpExt:TWRecycled"
+  Value "TcpExt:TCPSlowStartRetrans"
+  Value "TcpExt:TCPLostRetransmit"
+  Value "TcpExt:TCPAbortOnMemory"
+  Value "TcpExt:TCPTimeouts"
+  Value "TcpExt:TCPAbortOnSyn"
+  Value "TcpExt:ListenDrops"
+  Value "TcpExt:TCPAbortFailed"
+  Value "TcpExt:TCPForwardRetrans"
+  Value "TcpExt:TCPLossUndo"
+  Value "TcpExt:ListenOverflows"
+  Value "Udp:InDatagrams"
+  Value "Udp:InErrors"
+  Value "Udp:NoPorts"
+  Value "Udp:OutDatagrams"
+  Value "/^Tcp:.*/"
+  IgnoreSelected false
+</Plugin>
+
+LoadPlugin disk
+
+<Plugin disk>
+  Disk "/^[hs]d[a-f][0-9]?$/"
+#  Disk "/^[dev/cciss/c0d0p].*/"
+  IgnoreSelected false
+</Plugin>
+
+LoadPlugin python
+
+<Plugin python>
+  ModulePath "${COLLECTD_HOME}/plugins/python"
+  Import "arcus_stat"
+
+  <Module arcus_stat>
+    Host "127.0.0.1"
+    Port "DETECT"
+    Mode "stat"
+    TypesDB "${COLLECTD_HOME}/share/collectd/types.db"
+  </Module>
+</Plugin>
+
