@@ -89,7 +89,7 @@ export HUBBLE_ZOOKEEPER_HOSTS="10.0.0.1:2181,10.0.0.2:2181,10.0.0.3:2181"
 ```
 # copy arcus-collectd to all arcus cache machines like below.
 tar cvfz arcus-collectd.tar.gz arcus-collectd
-scp arcus.collectd.tar.gz [[user@]cache-host:]install-path
+scp arcus-collectd.tar.gz [[user@]cache-host:]install-path
 
 # untar arcus-collectd at each arcus cache machine.
 ssh [user@]cache-host
