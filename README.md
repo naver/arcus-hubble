@@ -122,7 +122,7 @@ $COLLECTD_HOME/sbin/collectd -C $COLLECTD_HOME/etc/collectd-arcus-prefix.conf
 
 ```
 # Each service code must be registered in this part like below examples.
-# format: <server_code> : <hubble-rrd-server-ip:hubble-rrd-server-port>
+# format: <service_code> : <hubble-rrd-server-ip:hubble-rrd-server-port>
 
   "hubble": {
       "test"   : "10.0.0.4:25832"
