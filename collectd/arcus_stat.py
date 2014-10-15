@@ -55,8 +55,8 @@ TYPES_CONV = {
 }
 
 QOS_OPS = {
-  'qos_kv_get' : 'get arcus-ping:qos_kv\r\n',
   'qos_kv_set' : 'set arcus-ping:qos_kv 0 3 4\r\nDATA\r\n',
+  'qos_kv_get' : 'get arcus-ping:qos_kv\r\n',
   'qos_lop_insert' : 'lop insert arcus-ping:qos_lop 0 4 create 0 3 10\r\nDATA\r\n',
   'qos_lop_get' : 'lop get arcus-ping:qos_lop 0..10\r\n',
   'qos_lop_delete' : 'lop delete arcus-ping:qos_lop 0..10 drop\r\n',
@@ -66,6 +66,20 @@ QOS_OPS = {
   'qos_bop_insert' : 'bop insert arcus-ping:qos_bop 1 4 create 0 3 10\r\nDATA\r\n',
   'qos_bop_get' : 'bop get arcus-ping:qos_bop 1..10\r\n',
   'qos_bop_delete' : 'bop delete arcus-ping:qos_bop 1..10 10 drop\r\n'
+}
+
+QOS_RES = {
+  'qos_kv_set' : 'STORED\r\n',
+  'qos_kv_get' : 'END\r\n',
+  'qos_lop_insert' : 'CREATED_STORED\r\n',
+  'qos_lop_get' : 'END\r\n',
+  'qos_lop_delete' : 'DELETED_DROPPED\r\n',
+  'qos_sop_insert' : 'CREATED_STORED\r\n',
+  'qos_sop_exist' : 'EXIST\r\n',
+  'qos_sop_delete' : 'DELETED_DROPPED\r\n',
+  'qos_bop_insert' : 'CREATED_STORED\r\n',
+  'qos_bop_get' : 'END\r\n',
+  'qos_bop_delete' : 'DELETED_DROPPED\r\n'
 }
 
 def str_to_num(s):
@@ -123,9 +137,20 @@ def get_type_instances(dbfile):
         
   return result
 
-def get_latency_ms(sock, operation):
+#def get_latency_ms(sock, operation):
+#  begin = time.time()
+#  sock.sendall(operation)
+#  return (time.time() - begin) * 1000
+
+def get_latency_ms(sock, file, qos_key):
   begin = time.time()
-  sock.sendall(operation)
+  sock.sendall(QOS_OPS[qos_key])
+
+  while (1):
+    line = file.readline()
+    if not line or QOS_RES[qos_key] == line or 'NOT_FOUND\r\n' == line:
+      break
+
   return (time.time() - begin) * 1000
 
 def fetch_stat(host, port):
@@ -178,17 +203,17 @@ def fetch_stat(host, port):
       result_stats_detail[prefix_name][prefix_stat_name] = prefix_stats[i+1]
 
   # QoS (get operation latencies)
-  result_stats['qos_kv_set']     = get_latency_ms(s, QOS_OPS['qos_kv_set'])
-  result_stats['qos_kv_get']     = get_latency_ms(s, QOS_OPS['qos_kv_get'])
-  result_stats['qos_lop_insert'] = get_latency_ms(s, QOS_OPS['qos_lop_insert'])
-  result_stats['qos_lop_get']    = get_latency_ms(s, QOS_OPS['qos_lop_get'])
-  result_stats['qos_lop_delete'] = get_latency_ms(s, QOS_OPS['qos_lop_delete'])
-  result_stats['qos_sop_insert'] = get_latency_ms(s, QOS_OPS['qos_sop_insert'])
-  result_stats['qos_sop_exist']  = get_latency_ms(s, QOS_OPS['qos_sop_exist'])
-  result_stats['qos_sop_delete'] = get_latency_ms(s, QOS_OPS['qos_sop_delete'])
-  result_stats['qos_bop_insert'] = get_latency_ms(s, QOS_OPS['qos_bop_insert'])
-  result_stats['qos_bop_get']    = get_latency_ms(s, QOS_OPS['qos_bop_get'])
-  result_stats['qos_bop_delete'] = get_latency_ms(s, QOS_OPS['qos_bop_delete'])
+  result_stats['qos_kv_set']     = get_latency_ms(s, fp, 'qos_kv_set')
+  result_stats['qos_kv_get']     = get_latency_ms(s, fp, 'qos_kv_get')
+  result_stats['qos_lop_insert'] = get_latency_ms(s, fp, 'qos_lop_insert')
+  result_stats['qos_lop_get']    = get_latency_ms(s, fp, 'qos_lop_get')
+  result_stats['qos_lop_delete'] = get_latency_ms(s, fp, 'qos_lop_delete')
+  result_stats['qos_sop_insert'] = get_latency_ms(s, fp, 'qos_sop_insert')
+  result_stats['qos_sop_exist']  = get_latency_ms(s, fp, 'qos_sop_exist')
+  result_stats['qos_sop_delete'] = get_latency_ms(s, fp, 'qos_sop_delete')
+  result_stats['qos_bop_insert'] = get_latency_ms(s, fp, 'qos_bop_insert')
+  result_stats['qos_bop_get']    = get_latency_ms(s, fp, 'qos_bop_get')
+  result_stats['qos_bop_delete'] = get_latency_ms(s, fp, 'qos_bop_delete')
 
   s.close()
 
