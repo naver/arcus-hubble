@@ -55,17 +55,17 @@ TYPES_CONV = {
 }
 
 QOS_OPS = {
-  'qos_kv_set' : 'set arcus-ping:qos_kv 0 3 4\r\nDATA\r\n',
-  'qos_kv_get' : 'get arcus-ping:qos_kv\r\n',
-  'qos_lop_insert' : 'lop insert arcus-ping:qos_lop 0 4 create 0 3 10\r\nDATA\r\n',
-  'qos_lop_get' : 'lop get arcus-ping:qos_lop 0..10\r\n',
-  'qos_lop_delete' : 'lop delete arcus-ping:qos_lop 0..10 drop\r\n',
-  'qos_sop_insert' : 'sop insert arcus-ping:qos_sop 4 create 0 3 10\r\nDATA\r\n',
-  'qos_sop_exist' : 'sop exist arcus-ping:qos_sop 4\r\nDATA\r\n',
-  'qos_sop_delete' : 'sop delete arcus-ping:qos_sop 4 drop\r\nDATA\r\n',
-  'qos_bop_insert' : 'bop insert arcus-ping:qos_bop 1 4 create 0 3 10\r\nDATA\r\n',
-  'qos_bop_get' : 'bop get arcus-ping:qos_bop 1..10\r\n',
-  'qos_bop_delete' : 'bop delete arcus-ping:qos_bop 1..10 10 drop\r\n'
+  'qos_kv_set' : 'set arcus:qos-kv 0 3 4\r\nDATA\r\n',
+  'qos_kv_get' : 'get arcus:qos-kv\r\n',
+  'qos_lop_insert' : 'lop insert arcus:qos-lop 0 4 create 0 3 10\r\nDATA\r\n',
+  'qos_lop_get' : 'lop get arcus:qos-lop 0..10\r\n',
+  'qos_lop_delete' : 'lop delete arcus:qos-lop 0..10 drop\r\n',
+  'qos_sop_insert' : 'sop insert arcus:qos-sop 4 create 0 3 10\r\nDATA\r\n',
+  'qos_sop_exist' : 'sop exist arcus:qos-sop 4\r\nDATA\r\n',
+  'qos_sop_delete' : 'sop delete arcus:qos-sop 4 drop\r\nDATA\r\n',
+  'qos_bop_insert' : 'bop insert arcus:qos-bop 1 4 create 0 3 10\r\nDATA\r\n',
+  'qos_bop_get' : 'bop get arcus:qos-bop 1..10\r\n',
+  'qos_bop_delete' : 'bop delete arcus:qos-bop 1..10 10 drop\r\n'
 }
 
 QOS_RES = {
