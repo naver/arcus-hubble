@@ -13,6 +13,11 @@
       <div class="chart span5" data-chart-type="stacked_line" data-chart-group="sticky_memory" data-chart-title="sticky_memory" data-chart-legend="sticky_bytes,sticky_limit" data-chart-key="{{subtab.key}}}/arcus_stats_memory.rrd/sticky_bytes,{{subtab.key}}/arcus_stats_memory.rrd/sticky_limit"></div>
     </div>
 
+    <h6>cpu</h6>
+    <div class ="row" ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="cpu" data-chart-title="cpu" data-chart-legend="user,system" data-chart-key="{{subtab.key}}/arcus_stats_cpu.rrd/rusage_user,{{subtab.key}}/arcus_stats_cpu.rrd/rusage_system"></div>
+    </div>
+
     <h6>network</h6>
     <div class ="row" ng-model="selectedTab" chartgroup>
       <div class="chart span12" data-chart-type="multi_line" data-chart-group="network" data-chart-title="network" data-chart-legend="bytes_read,bytes_written" data-chart-key="{{subtab.key}}/arcus_stats_network.rrd/bytes_read,{{subtab.key}}/arcus_stats_network.rrd/bytes_written"></div>

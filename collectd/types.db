@@ -199,6 +199,8 @@ mysql_threads           running:GAUGE:0:U, connected:GAUGE:0:U, cached:GAUGE:0:U
 
 arcus_stats_process   threads:GAUGE:0:1000000, curr_connections:GAUGE:0:U
 
+arcus_stats_cpu       rusage_user:DERIVE:0:U, rusage_system:DERIVE:0:U
+
 arcus_stats_network   bytes_read:DERIVE:0:U, bytes_written:DERIVE:0:U
 
 arcus_stats_memory    curr_items:GAUGE:0:U, bytes:GAUGE:0:U, total_malloced:GAUGE:0:U, engine_maxbytes:GAUGE:0:U, sticky_items:GAUGE:0:U, sticky_bytes:GAUGE:0:U, sticky_limit:GAUGE:0:U
