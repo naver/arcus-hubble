@@ -189,11 +189,25 @@ angular.module("controllers",[])
 	  				templateUrl: "/partials/tabs/" + k + ".html"
 	  			};
 
-	  			tab.active = (k == ptab);
-	  			tabs.push(tab);
+				//해당 탭이 선택된 상태라면 active 상태로 만든다.
+				if( k==ptab ) {
+					tab.active = (k == ptab);
+					$scope.selectedTab = tab;
+				}
+				tabs.push(tab);
 
 	  			// 소분류 탭(eth0, eth1, ...)을 만든다.
 	  			var subtabs = [];
+
+				var overview = { key: "overview", title: "overview", active: "overview" == psubtab };
+
+				if (overview.title.split("_").length > 1) {
+					overview.trimmedTitle = overview.title.split("_")[1];
+				} else {
+					overview.trimmedTitle = overview.title;
+				}
+				subtabs.push(overview);
+
 	  			Object.keys(data.value[k]).sort(Hubble.sortAlphaNumeric).forEach(function(subk) {
 	  				// FIXME 콘솔리데이션된 아커스 서비스라면, 특정 포트만 모니터링 한다.
 	  				// 썩 좋진 않은데, 이런 건 어떻게 처리하는게 좋을까?
@@ -204,6 +218,7 @@ angular.module("controllers",[])
 	  						return;
 	  					}
 	  				}
+
 	  				var subtab = { key: subk, title: subk, active: subk == psubtab };
 	  				if (subk.split("_").length > 1) {
 	  					subtab.trimmedTitle = subk.split("_")[1];
@@ -211,7 +226,6 @@ angular.module("controllers",[])
 	  					subtab.trimmedTitle = subk;
 	  				}
 
-	  				subtab.active = (subk == $routeParams.subtab);
 	  				subtabs.push(subtab);
 	  			});
 
@@ -251,9 +265,34 @@ angular.module("controllers",[])
 
     	var path = ["/service", $scope.serviceCode, $scope.server].join("/");
 
-  		$scope.selectedTab = tab;
-  		path += ("/" + tab.title);
-			$location.path(path);
+		$scope.selectedTab = tab;
+		path += ("/" + tab.title);
+
+		var subtab= { key: "overview", title: "overview", active: true };
+		if (subtab.title.split("_").length > 1) {
+			subtab.trimmedTitle = subtab.title.split("_")[1];
+		} else {
+			subtab.trimmedTitle = subtab.title;
+		}
+
+		$scope.selectedSubTab = subtab;
+		path += ("/overview");
+
+		//이전에 봤던 탭 정보  초기화
+		for( var i = 0; i < $scope.tabs.length; i++ ) {
+			if($scope.tabs[i].title == tab.title){
+				for(var j = 0; j < $scope.tabs[i].subtabs.length; j++ ) {
+					if($scope.tabs[i].subtabs[j].title == 'overview') {
+						$scope.tabs[i].subtabs[j].active = true;
+						continue;
+					}
+					$scope.tabs[i].subtabs[j].active = false;
+				}
+			}
+		}
+
+		//refresh를 고려한 url 변경. reload는 하지 않는다.
+		$location.path(path, false);
     };
 
     $scope.onSubTab = function(tab, subtab) {
@@ -277,7 +316,7 @@ angular.module("controllers",[])
   		$scope.selectedSubTab = subtab;
   		path += ("/" + subtab.title);
 
-			$location.path(path);
+		$location.path(path, false);
     };
 
     $scope.serviceName = SERVICE_NAME;

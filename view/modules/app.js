@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-angular.module('HubbleApp', ['config', 'controllers', 'services', 'directives', 'ui.select2', 'ui.bootstrap'])
+var app = angular.module('HubbleApp', ['config', 'controllers', 'services', 'directives', 'ui.select2', 'ui.bootstrap'])
   .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
     $routeProvider
       .when('/main', {
@@ -49,3 +49,19 @@ angular.module('HubbleApp', ['config', 'controllers', 'services', 'directives', 
     $routeProvider.otherwise({redirectTo: '/service'});
     //$locationProvider.html5Mode(true);
   }]);
+
+//url 주소만 변경하고 reload하지 않을 수 있도록
+//$location 모듈에 flag를 줌
+app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
+  var original = $location.path;
+  $location.path = function (path, reload) {
+    if (reload === false) {
+      var lastRoute = $route.current;
+      var un = $rootScope.$on('$locationChangeSuccess', function () {
+        $route.current = lastRoute;
+        un();
+      });
+    }
+    return original.apply($location, [path]);
+  };
+}]);

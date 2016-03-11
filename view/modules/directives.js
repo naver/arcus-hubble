@@ -104,12 +104,14 @@ angular.module("directives",[])
           return;
         }
 
-        // fix for the slow tab transition
-        if (scope.selectedTab != tab) {
-          return;
+        //그래프가 이미 존재할 때 그래프들을 지운다.
+        //사실 그래프 자체를 새로 그리는 게  가장 좋은 코드라 생각하지만
+        //이미 렌더링 된 현재 코드 구조에서 그래프를 지우기 위한 방법이 이것밖에 없다.
+        var children = element.children();
+        for( var i = 0; i < children.length; i++ ) {
+          children[i].innerHTML = "";
         }
-        // console.log("chartgroup", scope.subtab);
-        
+
         // make keys
         var keys = [];
         var children = element.children();
@@ -163,7 +165,7 @@ angular.module("directives",[])
             // refine keys (duplicated)
             var keysForChart = chart.dataset.chartKey.split(",").map(function(k) {
               if (! chart.getAttribute("aggregated-by-servers") && ! chart.getAttribute("contains-hostname")) {
-                return scope.server + "/" + k;  
+                return scope.server + "/" + k;
               } else {
                 return k;
               }
@@ -179,7 +181,7 @@ angular.module("directives",[])
                 width : chart.dataset.chartWidth || 500,
                 height : chart.dataset.chartHeight || 250,
                 // padding & margin = [ top, right, bottom, left ]
-                padding : [50, 200, 50, 80], 
+                padding : [50, 200, 50, 80],
                 margin : [0, 0, 0, 0],
                 x : {
                   count : axis_option.count,
@@ -229,7 +231,7 @@ function extractData(master, keys) {
     }
   }
   return ret;
-} 
+}
 
 function isScrolledOnTopOfView(elem){
   var docViewTop = $(window).scrollTop();
