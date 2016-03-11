@@ -73,11 +73,15 @@
           </div>
         </div>
         <tabset style="font-size:13px;">
-          <tab heading="Overview" select="onSubTab(tab, {title: 'Overview'})">
-            <ng-include src="tab.overviewTemplateUrl"></ng-include>
-          </tab>
-          <tab ng-repeat="subtab in tab.subtabs" select="onSubTab(tab, subtab)" heading="{{subtab.trimmedTitle}}" active="subtab.active" disabled="subtab.disabled">
-            <ng-include src="tab.templateUrl"></ng-include>
+          <tab ng-repeat="subtab in tab.subtabs" select="onSubTab(tab, subtab)" heading="{{subtab.trimmedTitle}}" active="subtab.active" disable="tab.disabled">
+            <div ng-switch on="subtab.title">
+              <div ng-switch-when="overview">
+                <ng-include src="tab.overviewTemplateUrl"></ng-include>
+              </div>
+              <div ng-switch-default>
+                <ng-include src="tab.templateUrl"></ng-include>
+              </div>
+            </div>
           </tab>
         </tabset>
       </tab>
