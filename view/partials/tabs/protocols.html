@@ -16,6 +16,27 @@
   <div ng-switch-when="protocols-TcpExt">
     <h6>tcp (extended)</h6>
     <div ng-model="selectedTab" chartgroup>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="DelayedACKLost" data-chart-legend="DelayedACKLost" data-chart-key="protocols-TcpExt/protocol_counter-DelayedACKLost.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="ListenDrops" data-chart-legend="ListenDrops" data-chart-key="protocols-TcpExt/protocol_counter-ListenDrops.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="ListenOverflows" data-chart-legend="ListenOverflows" data-chart-key="protocols-TcpExt/protocol_counter-ListenOverflows.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPAbortFailed" data-chart-legend="TCPAbortFailed" data-chart-key="protocols-TcpExt/protocol_counter-TCPAbortFailed.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPAbortOnClose" data-chart-legend="TCPAbortOnClose" data-chart-key="protocols-TcpExt/protocol_counter-TCPAbortOnClose.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPAbortOnData" data-chart-legend="TCPAbortOnData" data-chart-key="protocols-TcpExt/protocol_counter-TCPAbortOnData.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPAbortOnLinger" data-chart-legend="TCPAbortOnLinger" data-chart-key="protocols-TcpExt/protocol_counter-TCPAbortOnLinger.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPAbortOnMemory" data-chart-legend="TCPAbortOnMemory" data-chart-key="protocols-TcpExt/protocol_counter-TCPAbortOnMemory.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPAbortOnTimeout" data-chart-legend="TCPAbortOnTimeout" data-chart-key="protocols-TcpExt/protocol_counter-TCPAbortOnTimeout.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPFastRetrans" data-chart-legend="TCPFastRetrans" data-chart-key="protocols-TcpExt/protocol_counter-TCPFastRetrans.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPForwardRetrans" data-chart-legend="TCPForwardRetrans" data-chart-key="protocols-TcpExt/protocol_counter-TCPForwardRetrans.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPLossFailures" data-chart-legend="TCPLossFailures" data-chart-key="protocols-TcpExt/protocol_counter-TCPLossFailures.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPLossUndo" data-chart-legend="TCPLossUndo" data-chart-key="protocols-TcpExt/protocol_counter-TCPLossUndo.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPLostRetransmit" data-chart-legend="TCPLostRetransmit" data-chart-key="protocols-TcpExt/protocol_counter-TCPLostRetransmit.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPMemoryPressures" data-chart-legend="TCPMemoryPressures" data-chart-key="protocols-TcpExt/protocol_counter-TCPMemoryPressures.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPPrequeueDropped" data-chart-legend="TCPPrequeueDropped" data-chart-key="protocols-TcpExt/protocol_counter-TCPPrequeueDropped.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPSlowStartRetrans" data-chart-legend="TCPSlowStartRetrans" data-chart-key="protocols-TcpExt/protocol_counter-TCPSlowStartRetrans.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TCPTimeouts" data-chart-legend="TCPTimeouts" data-chart-key="protocols-TcpExt/protocol_counter-TCPTimeouts.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TW" data-chart-legend="TW" data-chart-key="protocols-TcpExt/protocol_counter-TW.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TWKilled" data-chart-legend="TWKilled" data-chart-key="protocols-TcpExt/protocol_counter-TWKilled.rrd/value"></div>
+      <div class="chart span5" data-chart-type="stacked_line" data-chart-group="tcp" data-chart-title="TWRecycled" data-chart-legend="TWRecycled" data-chart-key="protocols-TcpExt/protocol_counter-TWRecycled.rrd/value"></div>
     </div>
   </div>
   <div ng-switch-when="protocols-Udp">
