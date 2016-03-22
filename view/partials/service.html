@@ -57,7 +57,7 @@
         <div ng-switch on="tab.title">
           <div ng-switch-when="sum_prefix" ng-controller="PrefixController">
             <p>
-              <select style="width:50%;" ui-select2 ng-model="selectedPrefix" ng-change="selectPrefix(selectedPrefix);">
+              <select style="width:50%;" ui-select2 ng-model="selectedPrefix" ng-change="selectPrefix(tab, selectedPrefix);">
                 <option ng-repeat="prefix in prefixList" value="{{prefix}}">{{prefix}}</option>
               </select>
               <small>&nbsp;(total prefixes:{{prefixList.length}})</small>
@@ -65,7 +65,7 @@
           </div>
           <div ng-switch-when="stacked_sum_prefix" ng-controller="PrefixController">
             <p>
-              <select style="width:50%;" ui-select2 ng-model="selectedPrefix" ng-change="selectPrefix(selectedPrefix);">
+              <select style="width:50%;" ui-select2 ng-model="selectedPrefix" ng-change="selectPrefix(tab, selectedPrefix);">
                 <option ng-repeat="prefix in prefixList" value="{{prefix}}">{{prefix}}</option>
               </select>
               <small>&nbsp;(total prefixes:{{prefixList.length}})</small>

@@ -84,25 +84,33 @@ angular.module("controllers",[])
    */
   .controller("PrefixController", ["$scope", "$location", "$routeParams", "Hubble", function($scope, $location, $routeParams, Hubble) {
 
-  	$scope.selectPrefix = function(prefix) {
-	  	$scope.selectedPrefix = prefix;
+    $scope.$on('prefix-selected', function(event, prefix) {
+		$scope.selectedPrefix = $scope.prefixList[0]
+		$scope.selectPrefix(prefix.selectedTab, $scope.prefixList[0]);
+    });
 
-	  	var query = $location.search();
-	  	if (query.prefix != prefix) {
-	  		// 쿼리 스트링이 다를 때만 URL을 변경한다.
-	  		query.prefix = prefix;
-	  		$location.path($location.path()).search(query);
-	  	}
-  	};
+  	$scope.selectPrefix = function(tab, prefix) {
+		var query = $location.search();
 
-  	if (! $routeParams.prefix) {
-  		$scope.selectPrefix("null");
-  	} else {
-			Hubble.getPrefixes(Hubble.getShared("hubble"), Hubble.getShared("serverlist"), Hubble.getShared("arcusport"), {grouped: true}, function(data) {
-				$scope.selectedPrefix = $routeParams.prefix;
-				$scope.prefixList = data;
-			});
-  	}
+		if (query.prefix != prefix) {
+			// 쿼리 스트링이 다를 때만 URL을 변경한다.
+			query.prefix = prefix;
+
+			for (var i = 0; i < $scope.tabs.length; i++) {
+				if( $scope.tabs[i].title === tab.title) {
+					$scope.tabs[i].subtabs = angular.copy($scope.tabs[i].subtabs);
+					break;
+				}
+			}
+
+			$location.path($location.path(), false).search(query);
+		}
+	};
+
+	Hubble.getPrefixes(Hubble.getShared("hubble"), Hubble.getShared("serverlist"), Hubble.getShared("arcusport"), {grouped: true}, function(data) {
+	    $scope.prefixList = data;
+		$scope.selectedPrefix = $routeParams.prefix;
+	});
   }])
 
   /*
@@ -208,6 +216,8 @@ angular.module("controllers",[])
 				}
 				subtabs.push(overview);
 
+				var currSubtab = {};
+
 	  			Object.keys(data.value[k]).sort(Hubble.sortAlphaNumeric).forEach(function(subk) {
 	  				// FIXME 콘솔리데이션된 아커스 서비스라면, 특정 포트만 모니터링 한다.
 	  				// 썩 좋진 않은데, 이런 건 어떻게 처리하는게 좋을까?
@@ -220,16 +230,26 @@ angular.module("controllers",[])
 	  				}
 
 	  				var subtab = { key: subk, title: subk, active: subk == psubtab };
+
 	  				if (subk.split("_").length > 1) {
 	  					subtab.trimmedTitle = subk.split("_")[1];
 	  				} else {
 	  					subtab.trimmedTitle = subk;
 	  				}
 
+					if(subk == psubtab){
+						currSubtab = subtab;
+					}
+
 	  				subtabs.push(subtab);
 	  			});
 
-	  			tab.subtabs = subtabs;
+				//원본을 복사해둔다.
+				tab.originSubtabs = angular.copy(subtabs);
+
+				//현재 실제로 사용할 데이터
+				tab.subtabs = subtabs;
+				currSubtab.active = true;
 	  		};
 
 				// 탭을 원하는 순서로 정렬한다. preferred에 포함되지 않은 plugin은 표시되지 않으므로 주의.
@@ -256,12 +276,13 @@ angular.module("controllers",[])
 
     $scope.onTab = function(tab) {
     	if (! tab || ! tab.active) {
-    		return;
+			return;
     	}
 
-    	if (tab.title == $routeParams.tab) {
-    		return;
-    	}
+		if(tab.title === $routeParams.tab) {
+			$routeParams.tab = {};
+			return;
+		}
 
     	var path = ["/service", $scope.serviceCode, $scope.server].join("/");
 
@@ -278,21 +299,25 @@ angular.module("controllers",[])
 		$scope.selectedSubTab = subtab;
 		path += ("/overview");
 
-		//이전에 봤던 탭 정보  초기화
-		for( var i = 0; i < $scope.tabs.length; i++ ) {
-			if($scope.tabs[i].title == tab.title){
-				for(var j = 0; j < $scope.tabs[i].subtabs.length; j++ ) {
-					if($scope.tabs[i].subtabs[j].title == 'overview') {
-						$scope.tabs[i].subtabs[j].active = true;
-						continue;
-					}
-					$scope.tabs[i].subtabs[j].active = false;
-				}
+		//원본 데이터를 복사하여 현재 서브탭 부분을 reload
+		for (var i = 0; i < $scope.tabs.length; i++) {
+			if ($scope.tabs[i].title === tab.title) {
+				$scope.tabs[i].subtabs = angular.copy($scope.tabs[i].originSubtabs);
+				$scope.tabs[i].subtabs[0].active = true;
+				break;
 			}
 		}
 
 		//refresh를 고려한 url 변경. reload는 하지 않는다.
 		$location.path(path, false);
+
+		//prefix가 선택되었을 경우 dropdown에서 null이 선택되도록 controller 간 통신을 한다.
+		if (tab.title === 'sum_prefix' || tab.title === 'stacked_sum_prefix') {
+			$scope.$broadcast('prefix-selected', {
+				selectedTab: tab
+			});
+		}
+
     };
 
     $scope.onSubTab = function(tab, subtab) {
@@ -301,10 +326,6 @@ angular.module("controllers",[])
     	}
 
     	if (! subtab || ! subtab.active) {
-    		return;
-    	}
-
-    	if (subtab.title == $routeParams.subtab) {
     		return;
     	}
 
@@ -345,6 +366,5 @@ angular.module("controllers",[])
       //$scope.initTabs($scope.hubble, $scope.server, {excludes: 'arcus_prefixes', grouped: true});
       $scope.initTabs($scope.hubble, $scope.server, $routeParams.tab, $routeParams.subtab, {grouped: true});
     });
-
   }])
-	;
+;
