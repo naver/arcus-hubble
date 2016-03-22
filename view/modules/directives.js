@@ -54,7 +54,7 @@ angular.module("directives",[])
 
       Object.keys(scope.pluginKeys[pluginPrefix]).sort().forEach(function(k) {
         if (k.indexOf("arcus") == 0) {
-          key = element[0].dataset.chartKey.replace("%query.prefix%", scope.query.prefix);
+          key = element[0].dataset.chartKey.replace("%query.prefix%", prefix);
           // FIXME 콘솔리데이션 처리...
           var p = k.split("-")[1];
           if (arcusport && arcusport.length != 0 && arcusport.indexOf(p) == -1) {
@@ -91,9 +91,8 @@ angular.module("directives",[])
           aggregated.push(s + "/" + k + "/" + key);
         });
       });
-
       element[0].dataset.chartKey = aggregated.join(",");
-    };
+    }
   }) // end of aggregatedByServers
 
   .directive("chartgroup", function(Hubble) {
