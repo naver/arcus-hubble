@@ -59,7 +59,7 @@ angular.module("controllers",[])
   /*
    * PeriodController
    */
-  .controller("PeriodController", ["$scope", "$location", "$routeParams", function($scope, $location, $routeParams) {
+  .controller("PeriodController", ["$scope", "$location", "$routeParams", "$route", function($scope, $location, $routeParams, $route) {
   	var selector = $routeParams.selector;
   	var period = $routeParams.period;
 
@@ -72,7 +72,9 @@ angular.module("controllers",[])
 	  		// 쿼리 스트링이 다를 때만 URL을 변경한다.
 	  		query.selector = $scope.periodSelector;
 	  		query.period = $scope.period;
+
 	  		$location.path($location.path()).search(query);
+			$route.reload();
 	  	}
   	};
 
