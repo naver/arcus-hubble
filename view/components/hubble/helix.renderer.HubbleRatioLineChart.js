@@ -14,19 +14,26 @@ helix.extendRenderer('ratio_line', 'HubbleRatioLineChart', 'HubbleLineChart', fu
 			for (var i = 0, len = this.data.time.length; i < len; i++) {
 				allData[i] = 0;
 			}
-			
+
 			// the number of keys should be 2
-			if (keys.length != 2) {
-				console.log('[ratio_line] number of keys should be 2', keys);
-				return allData;
+			//if (keys.length != 2) {
+			//	console.log('[ratio_line] number of keys should be 2', keys);
+			//	return allData;
+			//}
+
+			var tdata = [];
+			var len = Infinity;
+			for(var i = 0; i < keys.length; i++) {
+				tdata.push(this.getData(keys[i].trim(), 'value'));
+				len = Math.min(len, tdata[i].length);
 			}
 
-			var tdata1 = this.getData(keys[0].trim(), 'value');
-			var tdata2 = this.getData(keys[1].trim(), 'value');
-			var len = Math.min(tdata1.length, tdata2.length);
 			for (var i = 0; i < len; i++) {
 				// e.g. hit ratio = hit / hit + miss
-				var ratio = (tdata1[i] / (tdata1[i] + tdata2[i])) * 100;
+				//var ratio = (tdata1[i] / (tdata1[i] + tdata2[i])) * 100;
+
+				var ratio = this.option.calc(tdata, i);
+
 				if (! isNaN(ratio)) {
 					allData[i] = ratio;
 				}
