@@ -42,7 +42,7 @@
       <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_delete" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/delete_hits,{{subtab.key}}/arcus_stats_kv.rrd/delete_misses"></div>
       <div class="chart span5" data-chart-type="sum_line" data-chart-group="kv" data-chart-title="cmd_cas" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/cas_hits,{{subtab.key}}/arcus_stats_kv.rrd/cas_misses"></div>
       <div class="chart span5" data-chart-type="stacked_line" data-chart-group="kv" data-chart-title="flush operations" data-chart-legend="all,by_prefix" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/cmd_flush,{{subtab.key}}/arcus_stats_kv.rrd/cmd_flush_prefix"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/get_hits,{{subtab.key}}/arcus_stats_kv.rrd/get_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/get_hits,{{subtab.key}}/arcus_stats_kv.rrd/cmd_get"></div>
       <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="incr hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/incr_hits,{{subtab.key}}/arcus_stats_kv.rrd/incr_misses"></div>
       <div class="chart span5" data-chart-type="ratio_line" data-chart-group="kv" data-chart-title="decr hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_kv.rrd/decr_hits,{{subtab.key}}/arcus_stats_kv.rrd/decr_misses"></div>
     </div>
@@ -50,25 +50,25 @@
     <h6>list</h6>
     <div class ="row" ng-model="selectedTab" chartgroup>
       <div class="chart span12" data-chart-type="stacked_line" data-chart-group="list" data-chart-title="list operations" data-chart-legend="lop_create,lop_insert,lop_get,lop_delete" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_create,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_ins,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_get,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_delete"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="list" data-chart-title="lop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/lop_get_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/lop_get_elem_misses"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="list" data-chart-title="lop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/lop_del_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/lop_del_elem_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="list" data-chart-title="lop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/lop_get_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/lop_get_none_hits,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_get"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="list" data-chart-title="lop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_list.rrd/lop_del_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/lop_del_none_hits,{{subtab.key}}/arcus_stats_list.rrd/cmd_lop_del"></div>
     </div>
 
     <h6>set</h6>
     <div class ="row" ng-model="selectedTab" chartgroup>
       <div class="chart span12" data-chart-type="stacked_line" data-chart-group="set" data-chart-title="set operations" data-chart-legend="sop_create,sop_insert,sop_get,sop_exist,sop_delete" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_create,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_ins,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_get,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_exist,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_delete"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_get_elem_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_get_elem_misses"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_exist hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_exist_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_exist_misses"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_del_elem_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_del_elem_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_get_elem_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_get_none_hits,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_get"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_exist hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_exist_hits,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_exist"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="set" data-chart-title="sop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_set.rrd/sop_del_elem_hits,{{subtab.key}}/arcus_stats_set.rrd/sop_del_none_hits,{{subtab.key}}/arcus_stats_set.rrd/cmd_sop_del"></div>
     </div>
 
     <h6>b+tree</h6>
     <div class ="row" ng-model="selectedTab" chartgroup>
       <div class="chart span12" data-chart-type="stacked_line" data-chart-group="btree" data-chart-title="b+tree operations" data-chart-legend="bop_create,bop_insert,bop_update,bop_get,bop_count,bop_mget,bop_smget,bop_incr,bop_decr,bop_delete" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_create,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_ins,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_upd,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_get,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_count,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_mget,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_smget,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_incr,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_decr,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_delete"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_update hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_upd_elem_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_upd_misses"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_get_elem_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_get_elem_misses"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_count hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_count_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_count_misses"></div>
-      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_del_elem_hits,{{subtab.key}}/arcus_stats_list.rrd/bop_del_elem_misses"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_update hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_upd_elem_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_upd_none_hits,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_upd"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_get hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_get_elem_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_get_none_hits,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_get"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_count hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_count_hits,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_count"></div>
+      <div class="chart span5" data-chart-type="ratio_line" data-chart-group="btree" data-chart-title="bop_delete hit ratio" data-chart-key="{{subtab.key}}/arcus_stats_btree.rrd/bop_del_elem_hits,{{subtab.key}}/arcus_stats_btree.rrd/bop_del_none_hits,{{subtab.key}}/arcus_stats_btree.rrd/cmd_bop_del"></div>
     </div>
 
   </div>

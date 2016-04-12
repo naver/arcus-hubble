@@ -98,7 +98,7 @@ angular.module("directives",[])
   .directive("chartgroup", function(Hubble) {
     return function(scope, element, attrs) {
       scope.$watch("selectedSubTab", function(tab) {
-        // process only on visible tab
+         // process only on visible tab
         if (! element.is(":visible")) {
           return;
         }
@@ -170,6 +170,30 @@ angular.module("directives",[])
               }
             });
 
+            //chart type이 ratio_line일 때는 연산식이 필요하다.
+            var calcRatio = null;
+            if (chart.dataset.chartType == "ratio_line" ) {
+              if (chart.dataset.chartGroup == "kv") {
+                if (chart.dataset.chartTitle == 'get hit ratio') {
+                  calcRatio = function (tdata, i) {
+                    return calculatePercent(tdata[0][i] / tdata[1][i]);
+                  }
+                } else {
+                  calcRatio = function (tdata, i) {
+                    return calculatePercent(tdata[0][i] / (tdata[0][i] + tdata[1][i]));
+                  }
+                }
+              } else if (chart.dataset.chartTitle == "sop_exist hit ratio" || chart.dataset.chartTitle == "bop_count hit ratio") {
+                calcRatio = function (tdata, i) {
+                  return calculatePercent(tdata[0][i] / tdata[1][i]);
+                }
+              } else {
+                calcRatio = function (tdata, i) {
+                  return calculatePercent((tdata[0][i] + tdata[1][i]) / tdata[2][i]);
+                }
+              }
+            }
+
             // render it
             window.helix.render({
               target : chart,
@@ -208,7 +232,8 @@ angular.module("directives",[])
                 value : keysForChart.join(","),
                 interval : options.interval,
                 until : options.until
-              }
+              },
+              calc : calcRatio
             }); // end of master.render()
           } // end of for()
         }); // end of Hubble.getChartDataByRRD()
@@ -240,4 +265,12 @@ function isScrolledOnTopOfView(elem){
   var elemBottom = elemTop + $(elem).height();
 
   return (elemTop <= docViewBottom);
+}
+
+function calculatePercent(value) {
+  var ratio = value * 100;
+  if(ratio > 100) {
+    return 100;
+  }
+  return ratio;
 }
