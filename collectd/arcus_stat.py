@@ -159,6 +159,7 @@ def fetch_stat(host, port):
 
   try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(0.3)
     s.connect((host, port))
   except:
     collectd.error('memcached_stat plugin: error connecting to %s:%d'%(MEMCACHED_HOST, port))
@@ -166,54 +167,59 @@ def fetch_stat(host, port):
 
   fp = s.makefile('r')
 
-  # stats
-  s.sendall('stats\r\n')
+  try:
+    # stats
+    s.sendall('stats\r\n')
 
-  while (1):
-    line = fp.readline()
-    if not line or 'END\r\n' == line:
-      break
-    stat = line.replace('\r\n', '').split(' ')
-    result_stats[stat[1]] = stat[2]
+    while (1):
+      line = fp.readline()
+      if not line or 'END\r\n' == line:
+        break
+      stat = line.replace('\r\n', '').split(' ')
+      result_stats[stat[1]] = stat[2]
 
-  # stats slabs
-  s.sendall('stats slabs\r\n')
+    # stats slabs
+    s.sendall('stats slabs\r\n')
 
-  while (1):
-    line = fp.readline()
-    if not line or 'END\r\n' == line:
-      break
-    stat = line.replace('\r\n', '').split(' ')
-    result_stats[stat[1]] = stat[2]
+    while (1):
+      line = fp.readline()
+      if not line or 'END\r\n' == line:
+        break
+      stat = line.replace('\r\n', '').split(' ')
+      result_stats[stat[1]] = stat[2]
 
-  # stats detail dump
-  s.sendall('stats detail dump\r\n')
+    # stats detail dump
+    s.sendall('stats detail dump\r\n')
 
-  while (1):
-    line = fp.readline()
-    if not line or 'END\r\n' == line:
-      break
-    stat = line.replace('\r\n', '').split(' ')
-    prefix_name = stat[1]
-    prefix_stats = stat[2:]
-    result_stats_detail[prefix_name] = {}
+    while (1):
+      line = fp.readline()
+      if not line or 'END\r\n' == line:
+        break
+      stat = line.replace('\r\n', '').split(' ')
+      prefix_name = stat[1]
+      prefix_stats = stat[2:]
+      result_stats_detail[prefix_name] = {}
 
-    for i in range(0, len(prefix_stats), 2):
-      prefix_stat_name = prefix_stats[i]
-      result_stats_detail[prefix_name][prefix_stat_name] = prefix_stats[i+1]
+      for i in range(0, len(prefix_stats), 2):
+        prefix_stat_name = prefix_stats[i]
+        result_stats_detail[prefix_name][prefix_stat_name] = prefix_stats[i+1]
 
-  # QoS (get operation latencies)
-  result_stats['qos_kv_set']     = get_latency_ms(s, fp, 'qos_kv_set')
-  result_stats['qos_kv_get']     = get_latency_ms(s, fp, 'qos_kv_get')
-  result_stats['qos_lop_insert'] = get_latency_ms(s, fp, 'qos_lop_insert')
-  result_stats['qos_lop_get']    = get_latency_ms(s, fp, 'qos_lop_get')
-  result_stats['qos_lop_delete'] = get_latency_ms(s, fp, 'qos_lop_delete')
-  result_stats['qos_sop_insert'] = get_latency_ms(s, fp, 'qos_sop_insert')
-  result_stats['qos_sop_exist']  = get_latency_ms(s, fp, 'qos_sop_exist')
-  result_stats['qos_sop_delete'] = get_latency_ms(s, fp, 'qos_sop_delete')
-  result_stats['qos_bop_insert'] = get_latency_ms(s, fp, 'qos_bop_insert')
-  result_stats['qos_bop_get']    = get_latency_ms(s, fp, 'qos_bop_get')
-  result_stats['qos_bop_delete'] = get_latency_ms(s, fp, 'qos_bop_delete')
+    # QoS (get operation latencies)
+    result_stats['qos_kv_set']     = get_latency_ms(s, fp, 'qos_kv_set')
+    result_stats['qos_kv_get']     = get_latency_ms(s, fp, 'qos_kv_get')
+    result_stats['qos_lop_insert'] = get_latency_ms(s, fp, 'qos_lop_insert')
+    result_stats['qos_lop_get']    = get_latency_ms(s, fp, 'qos_lop_get')
+    result_stats['qos_lop_delete'] = get_latency_ms(s, fp, 'qos_lop_delete')
+    result_stats['qos_sop_insert'] = get_latency_ms(s, fp, 'qos_sop_insert')
+    result_stats['qos_sop_exist']  = get_latency_ms(s, fp, 'qos_sop_exist')
+    result_stats['qos_sop_delete'] = get_latency_ms(s, fp, 'qos_sop_delete')
+    result_stats['qos_bop_insert'] = get_latency_ms(s, fp, 'qos_bop_insert')
+    result_stats['qos_bop_get']    = get_latency_ms(s, fp, 'qos_bop_get')
+    result_stats['qos_bop_delete'] = get_latency_ms(s, fp, 'qos_bop_delete')
+
+  except socket.timeout:
+    collectd.error('memcached_stat plugin: socket timeout')
+    return result_stats, result_stats_detail
 
   s.close()
 
@@ -249,11 +255,15 @@ def read_callback():
         for type, entries in TYPES_DB.iteritems():
           if not type.startswith('arcus_stats'): continue
           varray = []
+          stat_failed = False
           for dsname in entries['dsnames']:
             if stats.has_key(dsname):
               varray.append(str_to_num(stats[dsname]))
             else:
-              varray.append(0)
+              collectd.warning('memcached_stat plugin: stats dont\'t have %s'%dsname)
+              stat_failed = True
+              break
+          if stat_failed: continue
           value = collectd.Values(plugin='arcus_stat-%d'%port)
           value.type = type
           value.values = varray
@@ -266,11 +276,15 @@ def read_callback():
             if not type.startswith('arcus_prefixes'): continue
             if type.startswith('arcus_prefixes_meta'): continue
             varray = []
+            stat_failed = False
             for dsname in entries['dsnames']:
               if props.has_key(dsname):
                 varray.append(str_to_num(props[dsname]))
               else:
-                varray.append(0)
+                collectd.warning('memcached_stat plugin: prefix dont\'t have %s' % dsname)
+                stat_failed = True
+                break
+            if stat_failed: continue
             value = collectd.Values(plugin='arcus_prefix-%d'%port)
             value.type_instance = prefix
             value.type = type
