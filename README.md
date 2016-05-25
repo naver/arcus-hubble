@@ -32,6 +32,10 @@ export PATH=$NODE_HOME/bin:$PATH
 - `rrdtool & collectd` installation
 
 ```
+
+sudo apt-get install libcairo2-dev libpango1.0-dev libxml2-dev (Ubuntu)
+sudo yum install cairo-devel libcairo2-devel libpango1.0-devel libxml-devel (CentOS)
+
 cd ~/vendor
 
 # rrdtool
