@@ -4,16 +4,12 @@
 
 export LD_LIBRARY_PATH=$COLLECTD_HOME/lib
 
-TEMPLATE_REGEX='s/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/e'
+TEMPLATE_REGEX='s/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg'
 function TEMPLATE
 {
   TEMPLATE_TARGET=$1
-
   # Replace ${ENVIRONMENT_VARIABLE} to actual values.
-  # We run the same perl script twice because the regex only works for single ${..} in a line.
-  perl -p -i -e "$TEMPLATE_REGEX" < "$TEMPLATE_TARGET.template" > "$TEMPLATE_TARGET.temp"
-  perl -p -i -e "$TEMPLATE_REGEX" < "$TEMPLATE_TARGET.temp" > "$TEMPLATE_TARGET"
-  rm "$TEMPLATE_TARGET.temp"
+  perl -p -e "$TEMPLATE_REGEX" "$TEMPLATE_TARGET.template" > "$TEMPLATE_TARGET"
 }
 
 CONFIG_FILES=(
