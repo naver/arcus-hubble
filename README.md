@@ -27,24 +27,46 @@ ln -s node-v0.10.28-linux-x64 node
 # set environment variable
 export NODE_HOME=$HOME/vendor/node
 export PATH=$NODE_HOME/bin:$PATH
+
+# Change the permission of npm directories for global packages.
+# https://docs.npmjs.com/getting-started/fixing-npm-permissions
+sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+```
+
+- build tools installation
+
+To build native binding libraries (e.g. node_rrd), compile toolchains are required.
+
+```bash
+# Ubuntu
+sudo apt-get install build-essential ca-certificates
+
+# CentOS
+sudo yum groupinstall 'Development Tools'
+```
+
+On the ubuntu 12.04, update gcc and g++. (gcc and g++ should be newer than 4.8 to build node_rrd.)
+
+```bash
+# Ubuntu 12.04
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-4.8 g++-4.8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 ```
 
 - `rrdtool & collectd` installation
 
 ```
+# Ubuntu
+sudo apt-get install librrd-dev
 
-sudo apt-get install libcairo2-dev libpango1.0-dev libxml2-dev (Ubuntu)
-sudo yum install cairo-devel libcairo2-devel libpango1.0-devel libxml-devel (CentOS)
+# CentOS
+sudo yum install rrdtool-devel
 
 cd ~/vendor
-
-# rrdtool
-curl -OL http://oss.oetiker.ch/rrdtool/pub/rrdtool-1.4.8.tar.gz
-tar xvf rrdtool-1.4.8.tar.gz
-pushd rrdtool-1.4.8
-./configure --prefix=$HOME/arcus-collectd
-make; make install
-popd
 
 # collectd
 curl -OL https://collectd.org/files/collectd-5.4.1.tar.gz
@@ -174,4 +196,3 @@ https://github.com/naver/arcus-hubble/issues
 ## License
 
 Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
-

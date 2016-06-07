@@ -1,9 +1,9 @@
-{ 
+{
     "name": "rrd"
   , "version": "0.0.5"
   , "author": "Thierry Passeron (thierry.passeron@gmail.com)"
   , "contributors": [
-    
+
   ]
   , "description": "Node.js native binding for RRDtool"
   , "keywords": [
@@ -13,14 +13,15 @@
       , "node"
       , "native"
   ]
-  , "engines": { "node": ">=0.6.0" }
+  , "engines": { "node": ">=0.6.0 <0.13" }
   , "main": "./lib/rrd"
   , "scripts": {
       "test": "cd test; make"
   }
   , "dependencies": {
       "bindings": "*"
-    , "arguee": ">=0.0.2" 
+    , "arguee": ">=0.0.2"
+    , "nan": ">=2.0.9"
   }
   , "devDependencies": {
       "mocha": ">=1.3.0"

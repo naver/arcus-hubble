@@ -1,6 +1,6 @@
 /*
     RRDtool (http://oss.oetiker.ch/rrdtool/) bindings module for node (http://nodejs.org)
-    
+
     Copyright (c), 2012 Thierry Passeron
 
     The MIT License
@@ -34,7 +34,7 @@ class Infos: public AsyncInfos {
 public:
     rrd_info_t *data;
 
-    ~Infos() { free(data); }
+    ~Infos() { rrd_info_free(data); }
 };
 
 }
@@ -42,92 +42,75 @@ public:
 static void async_worker(uv_work_t *req);
 static void async_after(uv_work_t *req);
 
-Handle<Value> info(const Arguments &args) { // rrd.info(String filename, Function callback);
-    HandleScope scope;
+NAN_METHOD(info) { // rrd.info(String filename, Function callback);
+    Nan::HandleScope scope;
 
     CHECK_FUN_ARG(1)
 
     // Create info baton
-    CREATE_ASYNC_BATON(Infos, info)
+    CREATE_ASYNC_BATON(Infos, _info)
 
     // Get filename
-    SET_CHARS_ARG(0, info->filename)
+    SET_CHARS_ARG(0, _info->filename)
 
     // Get callback
-    SET_PERSFUN_ARG(1, info->callback)
+    SET_PERSFUN_ARG(1, _info->callback)
 
-    uv_queue_work(uv_default_loop(), &info->request, async_worker, (uv_after_work_cb)async_after);
+    uv_queue_work(uv_default_loop(), &_info->request, async_worker, (uv_after_work_cb)async_after);
 
-    return Undefined();
+    return;
 }
 
 static void async_worker(uv_work_t *req) {
-    Infos * info = static_cast<Infos*>(req->data);
+    auto info = static_cast<Infos*>(req->data);
 
     info->data = rrd_info_r(info->filename);
 }
 
-static Handle<Object>info_data_to_object(rrd_info_t *data);
+static Local<Object>info_data_to_object(rrd_info_t *data);
 
 static void async_after(uv_work_t *req) {
-    HandleScope scope;
+    Nan::HandleScope scope;
 
-    Infos * info = static_cast<Infos*>(req->data);
-    
-    Handle<Value> res[] = { info_data_to_object((rrd_info_t *)info->data) };
-    info->callback->Call(Context::GetCurrent()->Global(), 1, res);
+    auto info = static_cast<Infos*>(req->data);
 
-    delete(info);    
+    Local<Value> res[] = { info_data_to_object((rrd_info_t *)info->data) };
+    info->callback->Call(1, res);
+
+    delete(info);
 }
 
-/*
- * Based off of http://sambro.is-super-awesome.com/2011/03/03/creating-a-proper-buffer-in-a-node-c-addon/
- */
-static Local<Object> makeBuffer(char* data, size_t size) {
-  HandleScope scope;
+static Local<Object>info_data_to_object(rrd_info_t *data) {
+    Nan::EscapableHandleScope scope;
 
-  Local<Buffer> slowBuffer = Buffer::New(data, size);
-  Local<Object> global = Context::GetCurrent()->Global();
-  Local<Value> bv = global->Get(String::NewSymbol("Buffer"));
-  assert(bv->IsFunction());
-  Local<Function> b = Local<Function>::Cast(bv);
-  Handle<Value> argv[3] = { slowBuffer->handle_, Integer::New(size), Integer::New(0) };
-  Local<Object> fastBuffer = b->NewInstance(3, argv);
+    auto info = ObjectTemplate::New();
+    auto instance = info->NewInstance();
 
-  return scope.Close(fastBuffer);
-}
-
-static Handle<Object>info_data_to_object(rrd_info_t *data) {
-    HandleScope scope;
-
-    Handle<ObjectTemplate> info = ObjectTemplate::New();
-    Handle<Object> instance = info->NewInstance();
-    
     while (data) {
-         v8::Handle<v8::String> key = String::New(data->key);
+         v8::Local<v8::String> key = Nan::New<String>(data->key).ToLocalChecked();
 
         switch (data->type) {
         case RD_I_VAL:
-            instance->Set(key, Number::New(data->value.u_val)); // if data->value.u_val is not a number, it will be NaN
+            instance->Set(key, Nan::New<Number>(data->value.u_val)); // if data->value.u_val is not a number, it will be NaN
             break;
         case RD_I_CNT:
-            instance->Set(key, Number::New(data->value.u_cnt));
+            instance->Set(key, Nan::New<Number>(data->value.u_cnt));
             break;
         case RD_I_INT:
-            instance->Set(key, Number::New(data->value.u_int));
+            instance->Set(key, Nan::New<Number>(data->value.u_int));
             break;
         case RD_I_STR:
-            instance->Set(key, String::New(data->value.u_str));
+            instance->Set(key, Nan::New<String>(data->value.u_str).ToLocalChecked());
             break;
         case RD_I_BLO:
-            instance->Set(key, makeBuffer((char*)data->value.u_blo.ptr, data->value.u_blo.size));
+            instance->Set(key, Nan::NewBuffer((char*)data->value.u_blo.ptr, data->value.u_blo.size).ToLocalChecked());
             // fwrite(data->value.u_blo.ptr, data->value.u_blo.size, 1, stdout);
             break;
         }
         data = data->next;
     }
 
-    return scope.Close(instance);
+    return scope.Escape(instance);
 }
 
 }

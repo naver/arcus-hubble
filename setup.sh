@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 . ./env.sh
 
 export LD_LIBRARY_PATH=$COLLECTD_HOME/lib
@@ -24,7 +26,6 @@ CONFIG_FILES=(
   conf/conf-orbiter.json
   conf/conf-rrd.json
   conf/conf-view.json
-  lib/node_rrd/binding.gyp
   view/modules/config.js
 )
 
@@ -34,17 +35,13 @@ for file in ${CONFIG_FILES[@]}; do
   TEMPLATE $file
 done
 
-# Build node_rrd
-pushd lib/node_rrd
-rm -rf build
-rm -rf node_modules
-npm install .
-popd
-
 # Build hubble
 rm -rf node_modules
 npm install -g forever
 npm install
+
+# Install node_rrd
+npm install $(pwd)/lib/node_rrd
 
 # Copy collectd stuffs
 mkdir -p $COLLECTD_HOME/plugins/python
