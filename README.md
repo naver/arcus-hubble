@@ -24,13 +24,13 @@ curl -OL http://nodejs.org/dist/v0.10.28/node-v0.10.28-linux-x64.tar.gz
 tar xvf node-v0.10.28-linux-x64.tar.gz
 ln -s node-v0.10.28-linux-x64 node
 
+# change npm's default directory for global installation
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+
 # set environment variable
 export NODE_HOME=$HOME/vendor/node
-export PATH=$NODE_HOME/bin:$PATH
-
-# Change the permission of npm directories for global packages.
-# https://docs.npmjs.com/getting-started/fixing-npm-permissions
-sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+export PATH=~/.npm-global/bin:$NODE_HOME/bin:$PATH
 ```
 
 - build tools installation
