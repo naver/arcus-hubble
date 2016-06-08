@@ -126,7 +126,9 @@ def get_type_instances(dbfile):
 
         if typename.startswith('arcus_stats'):
           # FIXME fix for rrdtool's dsname character limit(=19 chars)
-          props[0] = props[0].replace('ins', 'insert').replace('upd', 'update').replace('del', 'delete')
+          props[0] = props[0].replace('ins', 'insert').replace('upd', 'update')
+          if not 'delete' in props[0]:
+              props[0] = props[0].replace('del', 'delete')
         elif typename.startswith('arcus_prefixes'):
           # FIXME make 'stats detail dump' metrics readable
           for fr, to in TYPES_CONV.iteritems():
