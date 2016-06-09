@@ -158,6 +158,27 @@ angular.module("services", [])
         $http.get(partial, { cache: $templateCache }).then(function(result) {
           //console.log(partial + " loaded and cached");
         })
+      },
+      getPorts: function(serviceCode, server, callback) {
+        var config = { cache: true };
+        var url = ["http://", HUBBLE_ADDRESS, "/api/v1/cluster_by_ip", "?callback=JSON_CALLBACK"].join("");
+        $http.jsonp(url, config).success(function(data, status) {
+          var result = [];
+          for (var k in data) {
+            var host = k.split(":")[0];
+            if (host == server) {
+              if (data[k].includes(serviceCode)) {
+                var port = k.split(":")[1];
+                if (port) {
+                  result.push(port);
+                }
+              }
+            }
+          }
+          callback(result);
+        }).error(function(data, status) {
+          console.log(data, status);
+        });
       }
     };
   }])
