@@ -229,6 +229,9 @@ angular.module("controllers",[])
 	  					if (arcusport && arcusport.length != 0 && arcusport.indexOf(p) == -1) {
 	  						return;
 	  					}
+	  					if ($scope.ports && !$scope.ports.includes(p)) {
+	  						return;
+	  					}
 	  				}
 
 	  				var subtab = { key: subk, title: subk, active: subk == psubtab };
@@ -365,8 +368,11 @@ angular.module("controllers",[])
       Hubble.setShared("server", $scope.serverList[0]);
       Hubble.setShared("arcusport", $scope.arcusPort);
 
-      //$scope.initTabs($scope.hubble, $scope.server, {excludes: 'arcus_prefixes', grouped: true});
-      $scope.initTabs($scope.hubble, $scope.server, $routeParams.tab, $routeParams.subtab, {grouped: true});
-    });
+      Hubble.getPorts($scope.serviceCode, $scope.server, function(ports) {
+      	$scope.ports = ports;
+      	//$scope.initTabs($scope.hubble, $scope.server, {excludes: 'arcus_prefixes', grouped: true});
+      	$scope.initTabs($scope.hubble, $scope.server, $routeParams.tab, $routeParams.subtab, {grouped: true});
+      });
+  });
   }])
 ;

@@ -60,6 +60,9 @@ angular.module("directives",[])
           if (arcusport && arcusport.length != 0 && arcusport.indexOf(p) == -1) {
             return;
           }
+          if (!scope.ports.includes(p)) {
+            return;
+          }
         }
         aggregated.push([k, key].join("/"));
       });
@@ -85,6 +88,9 @@ angular.module("directives",[])
             // FIXME 콘솔리데이션 처리...
             var p = k.split("-")[1];
             if (arcusport && arcusport.length != 0 && arcusport.indexOf(p) == -1) {
+              return;
+            }
+            if (!scope.ports.includes(p)) {
               return;
             }
           }
