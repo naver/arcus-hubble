@@ -24,27 +24,49 @@ curl -OL http://nodejs.org/dist/v0.10.28/node-v0.10.28-linux-x64.tar.gz
 tar xvf node-v0.10.28-linux-x64.tar.gz
 ln -s node-v0.10.28-linux-x64 node
 
+# change npm's default directory for global installation
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+
 # set environment variable
 export NODE_HOME=$HOME/vendor/node
-export PATH=$NODE_HOME/bin:$PATH
+export PATH=~/.npm-global/bin:$NODE_HOME/bin:$PATH
+```
+
+- build tools installation
+
+To build native binding libraries (e.g. node_rrd), compile toolchains are required.
+
+```bash
+# Ubuntu
+sudo apt-get install build-essential ca-certificates
+
+# CentOS
+sudo yum groupinstall 'Development Tools'
+```
+
+On the ubuntu 12.04, update gcc and g++. (gcc and g++ should be newer than 4.8 to build node_rrd.)
+
+```bash
+# Ubuntu 12.04
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-4.8 g++-4.8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 ```
 
 - `rrdtool & collectd` installation
 
 ```
+# Ubuntu
+sudo apt-get install librrd-dev
 
-sudo apt-get install libcairo2-dev libpango1.0-dev libxml2-dev (Ubuntu)
-sudo yum install cairo-devel libcairo2-devel libpango1.0-devel libxml-devel (CentOS)
+# CentOS
+sudo yum install rrdtool-devel
 
 cd ~/vendor
-
-# rrdtool
-curl -OL http://oss.oetiker.ch/rrdtool/pub/rrdtool-1.4.8.tar.gz
-tar xvf rrdtool-1.4.8.tar.gz
-pushd rrdtool-1.4.8
-./configure --prefix=$HOME/arcus-collectd
-make; make install
-popd
 
 # collectd
 curl -OL https://collectd.org/files/collectd-5.4.1.tar.gz
@@ -174,4 +196,3 @@ https://github.com/naver/arcus-hubble/issues
 ## License
 
 Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
-

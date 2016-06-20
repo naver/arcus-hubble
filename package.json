@@ -9,11 +9,11 @@
         "walk": "*"
       , "ctype": "*"
       , "async": "*"
-      , "sqlite3": "2.0.x"
+      , "sqlite3": "*"
       , "winston": "*"
       , "express": "3.x"
       , "socket.io": "*"
-      , "zookeeper": "*"
+      , "zookeeper": "3.4.8-1"
       , "underscore": "*"
     }
 }
