@@ -158,6 +158,7 @@ def get_latency_ms(sock, file, qos_key):
 def fetch_stat(host, port):
   result_stats = {}
   result_stats_detail = {}
+  has_error = False
 
   try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -219,13 +220,13 @@ def fetch_stat(host, port):
     result_stats['qos_bop_get']    = get_latency_ms(s, fp, 'qos_bop_get')
     result_stats['qos_bop_delete'] = get_latency_ms(s, fp, 'qos_bop_delete')
 
-  except socket.timeout:
-    collectd.error('memcached_stat plugin: socket timeout')
-    return result_stats, result_stats_detail
-
   s.close()
 
-  return result_stats, result_stats_detail
+  except socket.error, e:
+    has_error = True
+    collectd.error('memcached_stat error: %s'%e)
+
+  return result_stats, result_stats_detail, has_error
 
 def config_callback(conf):
   global MEMCACHED_HOST, TYPES_DB, MEMCACHED_PORTS, COLLECTION_MODE
@@ -250,7 +251,7 @@ def read_callback():
   MEMCACHED_PORTS = get_memcached_ports()
   for port in MEMCACHED_PORTS:
     try:
-      stats, stats_detail = fetch_stat(MEMCACHED_HOST, port)
+      stats, stats_detail, has_error = fetch_stat(MEMCACHED_HOST, port)
 
       if COLLECTION_MODE == 'stat':
         # stats
@@ -262,9 +263,12 @@ def read_callback():
             if stats.has_key(dsname):
               varray.append(str_to_num(stats[dsname]))
             else:
-              collectd.warning('memcached_stat plugin: stats dont\'t have %s'%dsname)
-              stat_failed = True
-              break
+              if has_error:
+                collectd.warning('memcached_stat plugin: stats dont\'t have %s'%dsname))
+                stat_failed = True
+                break
+              else:
+                varray.append(0)
           if stat_failed: continue
           value = collectd.Values(plugin='arcus_stat-%d'%port)
           value.type = type
@@ -283,9 +287,12 @@ def read_callback():
               if props.has_key(dsname):
                 varray.append(str_to_num(props[dsname]))
               else:
-                collectd.warning('memcached_stat plugin: prefix dont\'t have %s' % dsname)
-                stat_failed = True
-                break
+                if has_error:
+                  collectd.warning('memcached_stat plugin: prefix dont\'t have %s'%dsname)
+                  stat_failed = True
+                  break
+                else:
+                  varray.append(0)
             if stat_failed: continue
             value = collectd.Values(plugin='arcus_prefix-%d'%port)
             value.type_instance = prefix
