@@ -220,7 +220,7 @@ def fetch_stat(host, port):
     result_stats['qos_bop_get']    = get_latency_ms(s, fp, 'qos_bop_get')
     result_stats['qos_bop_delete'] = get_latency_ms(s, fp, 'qos_bop_delete')
 
-  s.close()
+    s.close()
 
   except socket.error, e:
     has_error = True
@@ -264,7 +264,7 @@ def read_callback():
               varray.append(str_to_num(stats[dsname]))
             else:
               if has_error:
-                collectd.warning('memcached_stat plugin: stats dont\'t have %s'%dsname))
+                collectd.warning('memcached_stat plugin: stats dont\'t have %s'%dsname)
                 stat_failed = True
                 break
               else:
