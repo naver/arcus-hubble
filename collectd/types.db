@@ -211,7 +211,7 @@ arcus_stats_qos       qos_kv_set:GAUGE:0:U, qos_kv_get:GAUGE:0:U, qos_lop_ins:GA
 
 arcus_stats_attr      cmd_getattr:DERIVE:0:U, cmd_setattr:DERIVE:0:U, getattr_hits:DERIVE:0:U, getattr_misses:DERIVE:0:U, setattr_hits:DERIVE:0:U, setattr_misses:DERIVE:0:U
 
-arcus_stats_kv        cmd_get:DERIVE:0:U, cmd_set:DERIVE:0:U, cmd_flush:DERIVE:0:U, cmd_flush_prefix:DERIVE:0:U, get_hits:DERIVE:0:U, get_misses:DERIVE:0:U, incr_misses:DERIVE:0:U, incr_hits:DERIVE:0:U, decr_misses:DERIVE:0:U, decr_hits:DERIVE:0:U, delete_hits:DERIVE:0:U, delete_misses:DERIVE:0:U, cas_hits:DERIVE:0:U, cas_misses:DERIVE:0:U
+arcus_stats_kv        cmd_get:DERIVE:0:U, cmd_set:DERIVE:0:U, cmd_incr:DERIVE:0:U, cmd_decr:DERIVE:0:U, cmd_delete:DERIVE:0:U, cmd_flush:DERIVE:0:U, cmd_flush_prefix:DERIVE:0:U, get_hits:DERIVE:0:U, get_misses:DERIVE:0:U, incr_misses:DERIVE:0:U, incr_hits:DERIVE:0:U, decr_misses:DERIVE:0:U, decr_hits:DERIVE:0:U, delete_hits:DERIVE:0:U, delete_misses:DERIVE:0:U, cas_hits:DERIVE:0:U, cas_misses:DERIVE:0:U
 
 arcus_stats_list      cmd_lop_create:DERIVE:0:U, cmd_lop_ins:DERIVE:0:U, cmd_lop_del:DERIVE:0:U, cmd_lop_get:DERIVE:0:U, lop_create_oks:DERIVE:0:U, lop_ins_hits:DERIVE:0:U, lop_ins_misses:DERIVE:0:U, lop_del_elem_hits:DERIVE:0:U, lop_del_none_hits:DERIVE:0:U, lop_del_misses:DERIVE:0:U, lop_get_elem_hits:DERIVE:0:U, lop_get_none_hits:DERIVE:0:U, lop_get_misses:DERIVE:0:U
 
