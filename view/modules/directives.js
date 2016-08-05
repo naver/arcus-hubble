@@ -180,13 +180,13 @@ angular.module("directives",[])
             var calcRatio = null;
             if (chart.dataset.chartType == "ratio_line" ) {
               if (chart.dataset.chartGroup == "kv") {
-                if (chart.dataset.chartTitle == 'get hit ratio') {
+                if (chart.dataset.chartTitle == 'get/set ratio') {
                   calcRatio = function (tdata, i) {
-                    return calculatePercent(tdata[0][i] / tdata[1][i]);
+                    return calculatePercent(tdata[0][i] / (tdata[0][i] + tdata[1][i]));
                   }
                 } else {
                   calcRatio = function (tdata, i) {
-                    return calculatePercent(tdata[0][i] / (tdata[0][i] + tdata[1][i]));
+                    return calculatePercent(tdata[0][i] / tdata[1][i]);
                   }
                 }
               } else if (chart.dataset.chartTitle == "sop_exist hit ratio" || chart.dataset.chartTitle == "bop_count hit ratio") {
