@@ -11,7 +11,7 @@ Current dashboard view is quite old so we're working on new dashboard.
 
 - `/etc/hosts` file preparation
 
-Hubble needs to get hostname or FQDN(or fully quallified domain name) from cache node IP.
+Hubble needs to get hostname or FQDN(or fully qualified domain name) from cache node IP.
 To enable this reverse DNS lookup, you must register < IP, hostname, FQDN > information
 into `/etc/hosts` file for all cache nodes.
 
